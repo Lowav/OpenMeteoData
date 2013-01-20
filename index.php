@@ -71,7 +71,7 @@
     /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */
 
-    /* Carousel base class */
+   /* Carousel base class */
     .carousel {
       margin-bottom: 60px;
     }
@@ -115,10 +115,12 @@
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,.4);
     }
+    .carousel-caption .lead {
+ 	   max-width: 500px;
+    }
     .carousel-caption .btn {
       margin-top: 10px;
     }
-
 
 
     /* MARKETING CONTENT
@@ -327,8 +329,8 @@
           <img src="img/slide-1.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Take a tour</h1>
-              <p class="lead">OpenMeteoData can provide multiples ressources for entreprises or personnal uses.</p>
+              <h1>Take a tour.</h1>
+              <p class="lead">OpenMeteoData can provide multiples resources for enterprises or personal uses.</p>
               <a class="btn btn-large btn-primary" href="#">Learn more</a>
             </div>
           </div>
@@ -337,8 +339,8 @@
           <img src="img/slide-2.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Take what you need. For free</h1>
-              <p class="lead">Meteo always been part of our lives, and now you can see on your own what's comming</p>
+              <h1>Take what you need. For free.</h1>
+              <p class="lead">Meteo always been part of our lives, and now you can see on your own what's coming</p>
               <a class="btn btn-large btn-primary" href="#">How does it works ?</a>
             </div>
           </div>
@@ -347,8 +349,8 @@
           <img src="img/slide-3.jpg" alt="">
           <div class="container">
             <div class="carousel-caption pull-right">
-              <h1>High quality servers</h1>
-              <p class="lead">We have our own servers, and we provide meteo <br />datas right from them, without interpretation.</p>
+              <h1>High quality servers.</h1>
+              <p class="lead">We have our own servers, and we provide meteo datas right from them, without interpretation.</p>
               <a class="btn btn-large btn-primary pull-right" href="#">See more</a>
             </div>
           </div>
@@ -369,7 +371,7 @@
       <div class="featurette">
        
         <h2 class="featurette-heading">Yes it's free. <span class="muted">You can even modify it.</span></h2>
-        <p class="lead">All datas are published under <a href="http://opendatacommons.org/licenses/odbl/">Open Database Licence (ODbL)</a> which means that you can :<br/></p>
+        <p class="lead">All datas are published under <a href="http://opendatacommons.org/licenses/odbl/">Open Database License (ODbL)</a> which means that you can :<br/></p>
         <img class="featurette-image pull-right" src="http://wiki.openstreetmap.org/w/images/9/9a/ODbL-Supporter.png">
       </div>
       
