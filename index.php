@@ -10,6 +10,7 @@
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/colors.css" rel="stylesheet">
     <style>
 
     /* GLOBAL STYLES
@@ -22,6 +23,42 @@
     }
 
 
+     /* CUSTOMIZE COLORS
+    -------------------------------------------------- */
+
+    /* Colors matched with slides, like the second one with clouds and blue sky */
+
+    .btn-primary {
+	  color: #ffffff;
+	  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	  background-color: #32508a;
+	  background-image: -moz-linear-gradient(top, #325c8a, #323f8a);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#325c8a), to(#323f8a));
+	  background-image: -webkit-linear-gradient(top, #325c8a, #323f8a);
+	  background-image: -o-linear-gradient(top, #325c8a, #323f8a);
+	  background-image: linear-gradient(to bottom, #325c8a, #323f8a);
+	  background-repeat: repeat-x;
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff325c8a', endColorstr='#ff323f8a', GradientType=0);
+	  border-color: #323f8a #323f8a #1e2552;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  *background-color: #323f8a;
+	  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+	
+	  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  }
+	.btn-primary:hover,
+	.btn-primary:active,
+	.btn-primary.active,
+	.btn-primary.disabled,
+	.btn-primary[disabled] {
+	  color: #ffffff;
+	  background-color: #323f8a;
+	  *background-color: #2b3677;
+	}
+	.btn-primary:active,
+	.btn-primary.active {
+	  background-color: #242e65 \9;
+	}
 
     /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */
@@ -51,6 +88,7 @@
     /* Downsize the brand/project name a bit */
     .navbar .brand {
       padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+      margin-left: -5px;
       font-size: 16px;
       font-weight: bold;
       text-shadow: 0 -1px 0 rgba(0,0,0,.5);
@@ -174,6 +212,7 @@
     /* RESPONSIVE CSS
     -------------------------------------------------- */
 
+
     @media (max-width: 979px) {
 
       .container.navbar-wrapper {
@@ -208,10 +247,10 @@
 
 
     @media (max-width: 767px) {
-
-      .navbar-inner {
-        margin: -20px;
-      }
+   
+	  .navbar {
+	    margin: 0;
+	  }
 
       .carousel {
         margin-left: -20px;
@@ -252,6 +291,8 @@
       }
 
     }
+    
+    
     </style>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -285,14 +326,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
+            
             <a class="brand" href="index.php">OpenMeteoData</a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
-            <div class="nav-collapse collapse">
+            <div class="nav-collapse collapse navbar-inverse-collapse">
               <ul class="nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">European Data Problem</a></li>
-                <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Technical <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -306,12 +347,12 @@
                   </ul>
                 </li>  
                 <li><a href="#contact">Contact</a></li>
-              </ul>
+              </ul><!--/.nav -->
               <ul class="nav pull-right">
               <li class="divider-vertical"></li>
               <li><a href="#contact">Donate</a></li>
-              <li><a href="#signin">Sign in</a></li>
-              </ul>
+              <li><a href="#SignIn" role="button" data-toggle="modal">Sign in</a></li>
+              </ul><!--/.nav pull-right -->
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->
@@ -408,6 +449,40 @@
       </footer>
 
     </div><!-- /.container -->
+    
+<div id="SignIn" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+	 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="SignInLabel">Not a member ?  <a href="‘#" class="">Register</a></h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" action="login.php" method="post">
+		<div class="control-group">
+			<label class="control-label" for="inputLogin">Login</label>
+			<div class="controls">
+				<input type="text" id="inputLogin" placeholder="Login">
+			</div><!-- /.controls -->
+		</div><!-- /.control-group -->
+		<div class="control-group">
+			<label class="control-label" for="inputPassword">Password</label>
+			<div class="controls">
+				<input type="password" id="inputPassword" placeholder="Password">
+			</div><!-- /.control -->
+		</div><!-- /.control-group -->
+		<div class="control-group">
+			<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox"> Remember me
+			</label>
+			</div>
+		</div>
+   	</div><!-- /.modal-body -->
+   	<div class="modal-footer">
+   		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+   		<button type="submit" class="btn btn-primary">Sign In</button>
+   		</form>
+   	</div>
+</div><!-- /.SignIn -->
 
 
 
