@@ -1,8 +1,40 @@
+<?php
+session_start();
+// libraries
+require_once(dirname(__FILE__).'/settings.inc.php');
+$settings = new settings();
+require_once(dirname(__FILE__).'/lang.class.php');
+$lang = new lang();
+// gestion des différentes conditions (isset n'est pas utilisable dans une classe)
+if(isset($_GET['lang']) && $_GET['lang'] != '')
+{
+	$lang->setLangActive($_GET['lang'], 'get');
+}
+elseif(isset($_GET['lang']) && $_GET['lang'] == '')
+{
+	if(isset($_COOKIE['lang']))
+	{
+		$lang->setLangActive($_COOKIE['lang'], 'cookie');
+	}
+	else
+	{
+		$lang->setLangActive('', '');
+	}
+}
+elseif(isset($_COOKIE['lang']))
+{
+	$lang->setLangActive($_COOKIE['lang'], 'cookie');
+}
+else
+{
+	$lang->setLangActive('', '');
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $lang->getLangActive(); ?>">
   <head>
     <meta charset="utf-8">
-    <title>Home &middot; OpenMeteoData</title>
+    <title>OpenMeteoData</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -84,6 +116,11 @@
          -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
               box-shadow: 0 2px 10px rgba(0,0,0,.25);
     }
+    
+    .active {
+	      color: #ffffff !important;
+	      background-color: transparent;    
+	}
 
     /* Downsize the brand/project name a bit */
     .navbar .brand {
@@ -103,6 +140,20 @@
     .navbar .btn-navbar {
       margin-top: 10px;
     }
+
+    .lang {
+	  top: 78%;
+	  min-width: 20px;
+	  background-color: #111111 !important;
+	}
+	.navbar .pull-right > li > .dropdown-menu, .navbar .nav > li >  .lang.dropdown-menu.pull-right {
+	right: 12px;
+	}
+	
+	.navbar .nav > li > .lang.dropdown-menu::after {
+	border-bottom: 0;
+	}
+	
 
 
 
@@ -327,38 +378,44 @@
               <span class="icon-bar"></span>
             </a>
             
-            <a class="brand" href="index.php">OpenMeteoData</a>
+            <a class="brand active" href="index.php">OpenMeteoData</a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse navbar-inverse-collapse">
               <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">European Data Problem</a></li>
+                <li><a href="#about"><?php echo NAV_ABOUT ?></a></li>
+                <li><a href="#problem"><?php echo NAV_PROBLEM ?></a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Technical <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo NAV_TECHNICAL ?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Our computer cluster</a></li>
-                    <li><a href="#">How does it works ?</a></li>
+                    <li><a href="#"><?php echo NAV_COMPUTERS ?></a></li>
+                    <li><a href="#"><?php echo NAV_WORK ?></a></li>
                     <li class="divider"></li>
-                    <li class="nav-header">Development</li>
-                    <li><a href="#">Partners</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li class="nav-header"><?php echo NAV_DEV ?></li>
+                    <li><a href="#"><?php echo NAV_PARTNERS ?></a></li>
+                    <li><a href="#"><?php echo NAV_API ?></a></li>
+                    <li><a href="#"><?php echo NAV_HELP ?></a></li>
                   </ul>
-                </li>  
-                <li><a href="#contact">Contact</a></li>
-              </ul><!--/.nav -->
-              <ul class="nav pull-right">
+               </li>  
+            </ul><!--/.nav -->
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo '<img src="img/'.$lang->getLangActive().'.png" alt="'.$lang->getLangActive().'" />'; ?> <b class="caret"></b></a>
+                  <ul class="lang dropdown-menu">
+                  	<?php foreach ($lang->langs_array as $value) {
+					  if($value != $lang->getLangActive()) echo '<li><a href="index.php?lang='.$value.'"><img src="img/'.$value.'.png" alt="'.$value.'" /></a></li>';
+					}  	?>
+                  </ul>
+                </li> 
               <li class="divider-vertical"></li>
-              <li><a href="#contact">Donate</a></li>
-              <li><a href="#SignIn" role="button" data-toggle="modal">Sign in</a></li>
-              </ul><!--/.nav pull-right -->
-            </div><!--/.nav-collapse -->
-          </div><!-- /.navbar-inner -->
-        </div><!-- /.navbar -->
+              <li><a href="#donate"><?php echo NAV_DONATE ?></a></li>
+              <li><a href="#SignIn" role="button" data-toggle="modal"><?php echo NAV_SIGN ?></a></li>
+            </ul><!--/.nav pull-right -->
+         </div><!--/.nav-collapse -->
+       </div><!-- /.navbar-inner -->
+     </div><!-- /.navbar -->
 
-      </div> <!-- /.container -->
-    </div><!-- /.navbar-wrapper -->
+   </div> <!-- /.container -->
+  </div><!-- /.navbar-wrapper -->
 
 
 
@@ -370,9 +427,9 @@
           <img src="img/slide-1.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Take a tour.</h1>
-              <p class="lead">OpenMeteoData can provide multiples resources for enterprises or personal uses.</p>
-              <a class="btn btn-large btn-primary" href="#">Learn more</a>
+              <h1><?php echo SLIDE1_TITLE ?></h1>
+              <p class="lead"><?php echo SLIDE1_SUBTITLE ?></p>
+              <a class="btn btn-large btn-primary" href="#"><?php echo SLIDE1_BTN ?></a>
             </div>
           </div>
         </div>
@@ -380,9 +437,9 @@
           <img src="img/slide-2.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Take what you need. For free.</h1>
-              <p class="lead">Meteo always been part of our lives, and now you can see on your own what's coming</p>
-              <a class="btn btn-large btn-primary" href="#">How does it works ?</a>
+              <h1><?php echo SLIDE2_TITLE ?></h1>
+              <p class="lead"><?php echo SLIDE2_SUBTITLE ?></p>
+              <a class="btn btn-large btn-primary" href="#"><?php echo SLIDE2_BTN ?></a>
             </div>
           </div>
         </div>
@@ -390,9 +447,9 @@
           <img src="img/slide-3.jpg" alt="">
           <div class="container">
             <div class="carousel-caption pull-right">
-              <h1>High quality servers.</h1>
-              <p class="lead">We have our own servers, and we provide meteo datas right from them, without interpretation.</p>
-              <a class="btn btn-large btn-primary pull-right" href="#">See more</a>
+              <h1><?php echo SLIDE3_TITLE ?></h1>
+              <p class="lead"><?php echo SLIDE3_SUBTITLE ?></p>
+              <a class="btn btn-large btn-primary pull-right" href="#"><?php echo SLIDE3_BTN ?></a>
             </div>
           </div>
         </div>
@@ -411,8 +468,8 @@
 
       <div class="featurette">
        
-        <h2 class="featurette-heading">Yes it's free. <span class="muted">You can even modify it.</span></h2>
-        <p class="lead">All datas are published under <a href="http://opendatacommons.org/licenses/odbl/">Open Database License (ODbL)</a> which means that you can :<br/></p>
+        <h2 class="featurette-heading"><?php echo FEATURETTE1_TITLE ?></h2>
+        <p class="lead"><?php echo FEATURETTE1_LEAD ?><br/></p>
         <img class="featurette-image pull-right" src="http://wiki.openstreetmap.org/w/images/9/9a/ODbL-Supporter.png">
       </div>
       
@@ -423,19 +480,16 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Share</h2>
-          <p>You are free to copy, distribute and use the database.</p>
+          <h2><?php echo ROW1_TITLE ?></h2>
+          <p><?php echo ROW1_SUBTITLE ?></p>
         </div><!-- /.span4 -->
         <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Create</h2>
-          <p>You are free to produce works from the database.</p>
+          <h2><?php echo ROW2_TITLE ?></h2>
+          <p><?php echo ROW2_SUBTITLE ?></p>
         </div><!-- /.span4 -->
         <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Adapt</h2>
-          <p>You are free to modify, transform and build upon the database.</p>
+          <h2><?php echo ROW3_TITLE ?></h2>
+          <p><?php echo ROW3_SUBTITLE ?></p>
         </div><!-- /.span4 -->
       </div><!-- /.row -->
       
@@ -444,7 +498,7 @@
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="#"><?php echo FOOTER_BACK ?></a></p>
         <p> 2013 &middot; OpenMeteoData</p>
       </footer>
 
@@ -453,33 +507,33 @@
 <div id="SignIn" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 	 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="SignInLabel">Not a member ?  <a href="‘#" class="">Register</a></h3>
+		<h3 id="SignInLabel"><?php echo SIGN_TITLE1 ?> <a href="‘#" class=""><?php echo SIGN_TITLE2 ?></a></h3>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal" action="login.php" method="post">
 		<div class="control-group">
-			<label class="control-label" for="inputLogin">Login</label>
+			<label class="control-label" for="inputLogin"><?php echo SIGN_LOGIN ?></label>
 			<div class="controls">
-				<input type="text" id="inputLogin" placeholder="Login">
+				<input type="text" id="inputLogin" placeholder="<?php echo SIGN_LOGIN ?>">
 			</div><!-- /.controls -->
 		</div><!-- /.control-group -->
 		<div class="control-group">
-			<label class="control-label" for="inputPassword">Password</label>
+			<label class="control-label" for="inputPassword"><?php echo SIGN_PASS ?></label>
 			<div class="controls">
-				<input type="password" id="inputPassword" placeholder="Password">
+				<input type="password" id="inputPassword" placeholder="<?php echo SIGN_PASS ?>">
 			</div><!-- /.control -->
 		</div><!-- /.control-group -->
 		<div class="control-group">
 			<div class="controls">
 			<label class="checkbox">
-				<input type="checkbox"> Remember me
+				<input type="checkbox"> <?php echo SIGN_REMEMBER ?>
 			</label>
 			</div>
 		</div>
    	</div><!-- /.modal-body -->
    	<div class="modal-footer">
-   		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-   		<button type="submit" class="btn btn-primary">Sign In</button>
+   		<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo CANCEL ?></button>
+   		<button type="submit" class="btn btn-primary"><?php echo SIGN_IN ?></button>
    		</form>
    	</div>
 </div><!-- /.SignIn -->
